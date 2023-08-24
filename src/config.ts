@@ -13,12 +13,20 @@ export default registerAs('config', () => {
       user: process.env.POSTGRES_USER,
       host: process.env.POSTGRES_HOST,
     },
-    mysql: {
+    /* mysql: {
       dbName: process.env.MYSQL_DATABASE,
       port: parseInt(process.env.MYSQL_PORT, 10),
       password: process.env.MYSQL_ROOT_PASSWORD,
       user: process.env.MYSQL_USER,
       host: process.env.MYSQL_HOST,
+    }, */
+    mysql: {
+      dbName: process.env.MYSQLDATABASE,
+      port: parseInt(process.env.MYSQLPORT, 10),
+      password: process.env.MYSQLPASSWORD,
+      user: process.env.MYSQLUSER,
+      host: process.env.MYSQLHOST,
+      url: process.env.MYSQL_URL,
     },
     apiKey: process.env.API_KEY,
     version: process.env.VERSION,
