@@ -12,7 +12,7 @@ export class AppService {
 
   getEnvs(): string {
     const apiKey = this.configService.apiKey;
-    const name = this.configService.database.name;
+    const name = this.configService.mysql.dbName;
     return `Envs: ${apiKey} ${name}`;
   }
 }

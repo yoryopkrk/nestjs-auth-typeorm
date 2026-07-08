@@ -18,12 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "typeorm-ts-node-esm -d src/database/data-source.ts",
-    "migrations:create": "npm run typeorm -- migration:create",
-    "migrations:generate": "npm run typeorm -- migration:generate",
-    "migrations:run": "npm run typeorm -- migration:run",
-    "migrations:show": "npm run typeorm -- migration:show",
-    "migrations:drop": "npm run typeorm -- schema:drop"
+    "typeorm": "node -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:create": "npm run typeorm -- migration:create src/database/migrations/migration",
+    "migration:generate": "npm run typeorm -- migration:generate src/database/migrations/migration -d src/database/data-source.ts",
+    "migration:show": "npm run typeorm -- migration:show -d src/database/data-source.ts",
+    "migration:run": "npm run typeorm -- migration:run -d src/database/data-source.ts",
+    "migration:revert": "npm run typeorm -- migration:revert -d src/database/data-source.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.0",
@@ -95,6 +95,6 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": "16.x"
+    "node": "20.x"
   }
 }
