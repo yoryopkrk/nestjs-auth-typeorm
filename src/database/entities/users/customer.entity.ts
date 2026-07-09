@@ -18,7 +18,7 @@ export class Customer {
   name: string;
 
   @Column({ type: 'text' })
-  lastName: string;
+  lastname: string;
 
   @Column({ type: 'varchar' })
   phone: string;
