@@ -45,5 +45,9 @@ export default registerAs('config', () => {
     apiKey: process.env.API_KEY,
     version: process.env.VERSION,
     jwtSecret: process.env.JWT_SECRET,
+    demoUser: {
+      email: getEnv('DEMO_USER_EMAIL'),
+      password: getEnv('DEMO_USER_PASSWORD'),
+    },
   };
 });

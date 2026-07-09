@@ -23,6 +23,8 @@ import config from './config';
         API_KEY: Joi.string().required(),
         VERSION: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
+        DEMO_USER_EMAIL: Joi.string().email(),
+        DEMO_USER_PASSWORD: Joi.string(),
         PORT: Joi.number(),
         DB_TYPE: Joi.string().valid('mysql', 'postgres'),
         DATABASE_TYPE: Joi.string().valid('mysql', 'postgres'),

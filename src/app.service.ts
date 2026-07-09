@@ -10,14 +10,24 @@ export class AppService {
     @Inject(config.KEY) private configService: ConfigType<typeof config>,
   ) {}
 
-  getEnvs(): string {
-    const apiKey = this.configService.apiKey;
-    const dbType = this.configService.database.type;
-    const database =
-      dbType === 'postgres'
-        ? this.configService.postgres.dbName
-        : this.configService.mysql.dbName;
+  getHome(): string {
+    const home = {
+      name: 'NestJS Auth TypeORM API',
+      status: 'ok',
+      login: {
+        url: '/auth/login',
+        method: 'POST',
+        body: {
+          email: this.configService.demoUser.email || 'demo@example.com',
+          password: this.configService.demoUser.password || 'demo-password',
+        },
+      },
+      docs: {
+        title: 'Swagger',
+        url: 'https://nestjs-auth-typeorm.up.railway.app/docs',
+      },
+    };
 
-    return `Envs: ${apiKey} ${database}`;
+    return JSON.stringify(home, null, 2);
   }
 }
