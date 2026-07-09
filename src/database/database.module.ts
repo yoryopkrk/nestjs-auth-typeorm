@@ -20,7 +20,17 @@ import config from '../config';
     TypeOrmModule.forRootAsync({
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
-        const { user, host, dbName, password, port } = configService.mysql;
+        const { user, host, dbName, password, port, url } = configService.mysql;
+
+        if (url) {
+          return {
+            type: 'mysql',
+            url,
+            synchronize: false,
+            autoLoadEntities: true,
+          };
+        }
+
         return {
           type: 'mysql',
           host,

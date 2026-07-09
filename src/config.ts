@@ -1,14 +1,25 @@
 import { registerAs } from '@nestjs/config';
 
+const getEnv = (...keys: string[]) => {
+  for (const key of keys) {
+    const value = process.env[key];
+    if (value) {
+      return value;
+    }
+  }
+
+  return undefined;
+};
+
 export default registerAs('config', () => {
   return {
     mysql: {
-      dbName: process.env.MYSQL_DATABASE,
-      port: parseInt(process.env.MYSQL_PORT, 10),
-      password: process.env.MYSQL_PASSWORD,
-      user: process.env.MYSQL_USER,
-      host: process.env.MYSQL_HOST,
-      url: process.env.MYSQL_URL,
+      dbName: getEnv('MYSQL_DATABASE', 'MYSQLDATABASE'),
+      port: parseInt(getEnv('MYSQL_PORT', 'MYSQLPORT'), 10),
+      password: getEnv('MYSQL_PASSWORD', 'MYSQLPASSWORD'),
+      user: getEnv('MYSQL_USER', 'MYSQLUSER'),
+      host: getEnv('MYSQL_HOST', 'MYSQLHOST'),
+      url: getEnv('MYSQL_URL', 'MYSQL_DATABASE_URL'),
     },
     apiKey: process.env.API_KEY,
     version: process.env.VERSION,

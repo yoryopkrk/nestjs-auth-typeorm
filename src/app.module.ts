@@ -23,13 +23,24 @@ import config from './config';
         API_KEY: Joi.string().required(),
         VERSION: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
-        MYSQL_DATABASE: Joi.string().required(),
-        MYSQL_PORT: Joi.number().required(),
-        MYSQL_PASSWORD: Joi.string().required(),
-        MYSQL_USER: Joi.string().required(),
-        MYSQL_HOST: Joi.string().required(),
-        MYSQL_URL: Joi.string().required(),
-      }),
+        MYSQL_URL: Joi.string(),
+        MYSQL_DATABASE_URL: Joi.string(),
+        MYSQL_DATABASE: Joi.string(),
+        MYSQL_PORT: Joi.number(),
+        MYSQL_PASSWORD: Joi.string(),
+        MYSQL_USER: Joi.string(),
+        MYSQL_HOST: Joi.string(),
+        MYSQLDATABASE: Joi.string(),
+        MYSQLPORT: Joi.number(),
+        MYSQLPASSWORD: Joi.string(),
+        MYSQLUSER: Joi.string(),
+        MYSQLHOST: Joi.string(),
+      })
+        .or('MYSQL_URL', 'MYSQL_DATABASE_URL', 'MYSQL_DATABASE', 'MYSQLDATABASE')
+        .or('MYSQL_URL', 'MYSQL_DATABASE_URL', 'MYSQL_PORT', 'MYSQLPORT')
+        .or('MYSQL_URL', 'MYSQL_DATABASE_URL', 'MYSQL_PASSWORD', 'MYSQLPASSWORD')
+        .or('MYSQL_URL', 'MYSQL_DATABASE_URL', 'MYSQL_USER', 'MYSQLUSER')
+        .or('MYSQL_URL', 'MYSQL_DATABASE_URL', 'MYSQL_HOST', 'MYSQLHOST'),
     }),
     UsersModule,
     ProductsModule,
