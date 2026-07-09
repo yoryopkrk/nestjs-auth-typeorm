@@ -1,6 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { Product } from './entities/products/product.entity';
 import { Brand } from './entities/products/brand.entity';
@@ -20,6 +20,37 @@ import config from '../config';
     TypeOrmModule.forRootAsync({
       inject: [config.KEY],
       useFactory: (configService: ConfigType<typeof config>) => {
+        const dbType = configService.database.type;
+
+        if (dbType === 'postgres') {
+          const { user, host, dbName, password, port, url, schema, ssl } =
+            configService.postgres;
+
+          if (url) {
+            return {
+              type: 'postgres',
+              url,
+              schema,
+              ssl,
+              synchronize: false,
+              autoLoadEntities: true,
+            } as TypeOrmModuleOptions;
+          }
+
+          return {
+            type: 'postgres',
+            host,
+            port,
+            username: user,
+            password,
+            database: dbName,
+            schema,
+            ssl,
+            synchronize: false,
+            autoLoadEntities: true,
+          } as TypeOrmModuleOptions;
+        }
+
         const { user, host, dbName, password, port, url } = configService.mysql;
 
         if (url) {
@@ -28,7 +59,7 @@ import config from '../config';
             url,
             synchronize: false,
             autoLoadEntities: true,
-          };
+          } as TypeOrmModuleOptions;
         }
 
         return {
@@ -40,7 +71,7 @@ import config from '../config';
           database: dbName,
           synchronize: false,
           autoLoadEntities: true,
-        };
+        } as TypeOrmModuleOptions;
       },
     }),
     TypeOrmModule.forFeature([

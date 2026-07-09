@@ -12,7 +12,12 @@ export class AppService {
 
   getEnvs(): string {
     const apiKey = this.configService.apiKey;
-    const name = this.configService.mysql.dbName;
-    return `Envs: ${apiKey} ${name}`;
+    const dbType = this.configService.database.type;
+    const database =
+      dbType === 'postgres'
+        ? this.configService.postgres.dbName
+        : this.configService.mysql.dbName;
+
+    return `Envs: ${apiKey} ${database}`;
   }
 }
