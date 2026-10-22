@@ -18,8 +18,10 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
-    .setTitle('API')
-    .setDescription('PLATZI STORE')
+    .setTitle('API E-commerce (NestJS + JWT + TypeORM)')
+    .setDescription(
+      'API de práctica para un catálogo de e-commerce: productos, categorías, marcas, clientes y órdenes, con autenticación JWT (Passport) y persistencia con TypeORM.',
+    )
     .setVersion('1.0.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
