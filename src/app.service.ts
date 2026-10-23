@@ -23,7 +23,7 @@ export class AppService {
         },
       },
       docs: {
-        title: 'Swagger',
+        title: 'API E-commerce (NestJS + JWT + TypeORM)',
         url: 'https://nestjs-auth-typeorm.up.railway.app/docs',
       },
     };
